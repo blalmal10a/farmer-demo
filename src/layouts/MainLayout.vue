@@ -55,8 +55,12 @@
   </q-layout>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { main } from 'src/boot/main'
 import { home } from 'src/scripts/home'
 const leftDrawerOpen = ref(false)
+
+onMounted(() => {
+  home.checkAuth()
+})
 </script>

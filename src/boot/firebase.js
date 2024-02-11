@@ -35,6 +35,5 @@ const firebaseAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-home.checkAuth()
 
 export { firebase, firebaseAuthUI, uiConfig }
