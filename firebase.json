@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "dist/spa",
+    "site": "farmersdemo",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
