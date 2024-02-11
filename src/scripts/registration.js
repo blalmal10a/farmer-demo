@@ -107,6 +107,7 @@ const registration = reactive({
 
 
 function submitCustomForm() {
+  registration.loadingSubmit = true;
   const email = `${registration.form.phone}@farmers.demo`
   const password = registration.form.date_of_birth
   firebase.auth().fetchSignInMethodsForEmail(email)
@@ -114,6 +115,7 @@ function submitCustomForm() {
       if (methods.length > 0) {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(
           () => {
+            registration.loadingSubmit = true;
             Notify.create('Pian ni leh phone no. a inmil lo.')
           }
         )
@@ -134,10 +136,12 @@ function submitCustomForm() {
             });
           })
           .then(function () {
+            registration.loadingSubmit = true;
             console.log("Profile updated successfully.");
           })
           .catch(function (error) {
             // Handle errors here
+            registration.loadingSubmit = true;
             var errorCode = error.code;
             var errorMessage = error.message;
             console.error("Error signing in anonymously or updating profile: ", errorCode, errorMessage);
@@ -145,6 +149,7 @@ function submitCustomForm() {
       }
     })
     .catch((error) => {
+      registration.loadingSubmit = true;
       console.error('Error fetching sign-in methods:', error);
     });
 

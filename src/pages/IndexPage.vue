@@ -6,6 +6,7 @@
       v-if="home.user"
       :rows="home.rows"
       :columns="home.columns"
+      :loading="home.loadingTable"
     >
       <template v-slot:top-right>
         <div>
@@ -20,7 +21,10 @@
           ></q-btn>
         </div>
       </template>
-      <template v-slot:no-data>
+      <template
+        v-slot:no-data
+        v-if="!home.loadingTable"
+      >
         <q-btn
           no-caps
           icon="add"
@@ -42,9 +46,7 @@ import { computed, onMounted } from 'vue';
 import { home } from 'src/scripts/home'
 import LoginRegisterForm from 'src/components/home/LoginRegisterForm.vue';
 import { useRouter } from 'vue-router';
-const showfirebaseUI = computed(() => {
-  return home.user == null
-})
+
 onMounted(() => {
   home.getEntries();
 })

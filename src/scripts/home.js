@@ -5,6 +5,7 @@ import { Loading, QSpinnerHourglass } from 'quasar';
 const home = reactive({
   loading: false,
   customForm: false,
+  loadingTable: false,
   user: null,
   rows: [],
   checkAuth,
@@ -75,19 +76,26 @@ function checkAuth(router) {
 }
 
 function getEntries() {
-  const db = firebase.firestore();
-  if (!home.user?.email) return;
-  db.collection(home.user.email).orderBy('date', 'desc').get().then(
-    (items) => {
-      home.rows = []
-      items.forEach(
-        data => {
-          home.rows.push(data.data())
-        }
-      )
-    }
-  )
+  home.loadingTable = true;
+  try {
 
+    const db = firebase.firestore();
+    if (!home.user?.email) return;
+    db.collection(home.user.email).orderBy('date', 'desc').get().then(
+      (items) => {
+        home.rows = []
+        items.forEach(
+          data => {
+            home.rows.push(data.data())
+          }
+        )
+        home.loadingTable = false;
+      }
+    )
+
+  } catch (error) {
+    home.loadingTable = false;
+  }
 }
 export {
   home
