@@ -2,8 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
+        <!-- v-if="home.user" -->
         <q-btn
-          v-if="home.user"
+          v-if="false"
           flat
           dense
           round
@@ -32,15 +33,24 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      v-if="home.user"
+      v-if="false"
     >
+      <!-- v-if="home.user" -->
       <q-list>
 
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <div>
+        <q-inner-loading :showing="home.loading">
+          <q-spinner-hourglass
+            size="70px"
+            color="primary"
+          />
+        </q-inner-loading>
+        <router-view />
+      </div>
     </q-page-container>
   </q-layout>
 </template>

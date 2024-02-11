@@ -2,7 +2,7 @@ import * as firebaseui from 'firebaseui';
 // import { initializeApp } from 'firebase/app';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-
+import { home } from 'src/scripts/home';
 const firebaseConfig = {
   apiKey: "AIzaSyCvc2x-vq3soJahuUBG8wTAfmW1T5QVFIQ",
   authDomain: "testna-f789e.firebaseapp.com",
@@ -32,5 +32,6 @@ const firebaseAuthUI = new firebaseui.auth.AuthUI(firebase.auth());
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
+home.checkAuth()
 
 export { firebase, firebaseAuthUI, uiConfig }
