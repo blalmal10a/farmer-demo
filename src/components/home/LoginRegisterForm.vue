@@ -31,8 +31,9 @@
 
     <q-card
       v-if="registration.customForm"
-      style="width: min(400px, 90vw)"
+      style="width: min(400px, 90vw); "
     >
+      <!-- margin-top: calc((100vh - 450px)/5); -->
       <q-card-section>
         <div class="row justify-center">
           <div class="">
@@ -64,23 +65,37 @@
                 ></q-select>
               </div>
 
-              <!-- <div class="col-12 q-mt-md">
-                <q-date
-                  flat
-                  bordered
-                  title="I pian ni thlang rawh"
-                  class="full-width"
-                  default-view="Years"
-                  v-model="registration.form.date_of_birth"
-                ></q-date>
-              </div> -->
+              <div class="col-12 q-mt-md">
+                <div>
+                  <q-date
+                    flat
+                    bordered
+                    title="I pian ni thlang rawh"
+                    class="full-width"
+                    default-view="Years"
+                    mask="YYYY-MM-DD"
+                    v-model="registration.form.date_of_birth"
+                  ></q-date>
+                </div>
+                <div class="q-mt-md">
+                  <q-btn
+                    :loading="registration.loadingSubmit"
+                    color="positive"
+                    class="full-width"
+                    type="submit"
+                    label="Submit"
+                  >
+
+                  </q-btn>
+                </div>
+              </div>
+
               <div class="col-12 q-mt-md">
                 <q-btn
-                  :loading="registration.loadingSubmit"
-                  color="positive"
+                  @click="registration.customForm = false"
+                  color="grey"
                   class="full-width"
-                  type="submit"
-                  label="Submit"
+                  label="Back"
                 >
 
                 </q-btn>
@@ -106,4 +121,5 @@ import { registration } from 'src/scripts/registration'
   pointer-events: none;
   background-color: none;
   height: auto;
-}</style>
+}
+</style>
