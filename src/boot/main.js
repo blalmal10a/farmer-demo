@@ -5,9 +5,14 @@ const main = reactive({
   onConfirmLogout
 })
 
-function onConfirmLogout() {
+function onConfirmLogout(router) {
   try {
-    firebase.auth().signOut()
+    router.push({ name: 'home' }).then(
+      () => {
+        firebase.auth().signOut()
+
+      }
+    )
   } catch (error) {
     console.error(error.message);
   }
