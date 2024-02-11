@@ -1,14 +1,17 @@
 <template>
   <q-page padding>
     <LoginRegisterForm v-show="!home.loading && !home.user" />
-    \
     <q-table>
       <template v-slot:top-right>
         <div>
           <q-btn
             no-caps
             icon="add"
+            color="green"
             label="Add Entry"
+            :to="{
+              name: 'farm-entry'
+            }"
           ></q-btn>
         </div>
       </template>

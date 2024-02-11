@@ -9,7 +9,9 @@ const routes = [
       },
 
       {
-        path: 'farm-entry', component: () => import('src/pages/FarmEntryForm.vue')
+        path: 'farm-entry',
+        name: 'farm-entry',
+        component: () => import('src/pages/FarmEntryForm.vue')
       },
     ]
   },
