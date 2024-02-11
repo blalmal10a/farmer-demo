@@ -34,63 +34,72 @@
       style="width: min(400px, 90vw); "
     >
       <!-- margin-top: calc((100vh - 450px)/5); -->
-      <q-card-section>
-        <div class="row justify-center">
-          <div class="">
-            <q-form
-              class="row"
-              @submit="registration.submitCustomForm()"
+
+      <div class="row justify-center">
+        <div class="">
+          <q-form
+            class="row"
+            style="padding-bottom: 120px;"
+            @submit="registration.submitCustomForm()"
+          >
+            <div
+              class="col-12 q-px-md"
+              v-for="(item, index) in registration.fields"
+              :key="index"
             >
-              <div
-                class="col-12"
-                v-for="(item, index) in registration.fields"
-                :key="index"
-              >
-                <q-input
-                  dense
-                  outlined
-                  class="q-mt-md"
-                  :type="item.type ?? 'text'"
-                  v-if="!item.component"
-                  v-bind="item.props"
-                  v-model="registration.form[item.key]"
-                ></q-input>
-                <q-select
-                  outlined
-                  dense
-                  class="q-mt-md"
-                  v-if="item.component == 'select'"
-                  v-bind="item.props"
-                  v-model="registration.form[item.key]"
-                ></q-select>
+              <q-input
+                dense
+                outlined
+                class="q-mt-md"
+                :type="item.type ?? 'text'"
+                v-if="!item.component"
+                v-bind="item.props"
+                v-model="registration.form[item.key]"
+              ></q-input>
+              <q-select
+                outlined
+                dense
+                class="q-mt-md"
+                v-if="item.component == 'select'"
+                v-bind="item.props"
+                v-model="registration.form[item.key]"
+              ></q-select>
+            </div>
+
+            <div class="col-12 q-mt-md">
+              <div>
+                <div
+                  class="q-px-sm"
+                  style="font-size: 20px; margin-bottom: -5px; "
+                >I pian ni thlang rawh</div>
+                <q-date
+                  flat
+                  minimal
+                  class="full-width q-mt-md"
+                  default-view="Years"
+                  mask="YYYY-MM-DD"
+                  v-model="registration.form.date_of_birth"
+                ></q-date>
               </div>
 
-              <div class="col-12 q-mt-md">
-                <div>
-                  <q-date
-                    flat
-                    bordered
-                    title="I pian ni thlang rawh"
-                    class="full-width"
-                    default-view="Years"
-                    mask="YYYY-MM-DD"
-                    v-model="registration.form.date_of_birth"
-                  ></q-date>
-                </div>
-                <div class="q-mt-md">
-                  <q-btn
-                    :loading="registration.loadingSubmit"
-                    color="positive"
-                    class="full-width"
-                    type="submit"
-                    label="Submit"
-                  >
+            </div>
 
-                  </q-btn>
-                </div>
+            <div
+              class="col-12 bg-white"
+              style="position: fixed; bottom: 0; width: min(90vw, 400px); border-top:  solid grey;"
+            >
+              <div class="q-mt-md">
+                <q-btn
+                  :loading="registration.loadingSubmit"
+                  color="positive"
+                  class="full-width"
+                  type="submit"
+                  label="Submit"
+                >
+
+                </q-btn>
               </div>
-
-              <div class="col-12 q-mt-md">
+              <div class="q-py-md">
                 <q-btn
                   @click="registration.customForm = false"
                   color="grey"
@@ -100,10 +109,11 @@
 
                 </q-btn>
               </div>
-            </q-form>
-          </div>
+            </div>
+          </q-form>
         </div>
-      </q-card-section>
+      </div>
+
     </q-card>
   </div>
 </template>
