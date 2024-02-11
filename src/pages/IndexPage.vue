@@ -19,7 +19,7 @@ const showfirebaseUI = computed(() => {
   return home.user == null
 })
 onMounted(() => {
-  // The start method will wait until the DOM is loaded.
-  home.checkAuth()
+
+  // home.checkAuth()
 })
 </script>

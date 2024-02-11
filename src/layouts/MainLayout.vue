@@ -3,6 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
+          v-if="home.user"
           flat
           dense
           round
@@ -31,6 +32,7 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      v-if="home.user"
     >
       <q-list>
 
