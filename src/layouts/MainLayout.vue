@@ -22,7 +22,7 @@
           dense
           round
           icon="logout"
-          @click="main.onConfirmLogout()"
+          @click="main.onConfirmLogout($router)"
         ></q-btn>
 
 
@@ -58,9 +58,11 @@
 import { onMounted, ref } from 'vue';
 import { main } from 'src/boot/main'
 import { home } from 'src/scripts/home'
+import { useRouter } from 'vue-router';
 const leftDrawerOpen = ref(false)
+const router = useRouter()
 
 onMounted(() => {
-  home.checkAuth()
+  home.checkAuth(router)
 })
 </script>

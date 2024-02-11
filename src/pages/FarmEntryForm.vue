@@ -6,7 +6,7 @@
     </h5>
     <q-form
       class="row q-col-gutter-md"
-      @submit="farm.onSubmitForm()"
+      @submit="farm.onSubmitForm($router)"
     >
 
       <template

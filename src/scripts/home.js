@@ -39,9 +39,8 @@ const home = reactive({
   ]
 })
 // quantity, weight, measurement, date, vegetable
-function checkAuth() {
+function checkAuth(router) {
   try {
-
     Loading.show({
       spinner: QSpinnerHourglass
     })
@@ -61,9 +60,13 @@ function checkAuth() {
 
       } else {
         Loading.hide()
+        router.push({ name: 'home' }).then(
+          () => {
+            firebaseAuthUI.start('#firebaseui-auth-container', uiConfig);
+          }
+        )
         home.loading = false;
         home.user = null
-        firebaseAuthUI.start('#firebaseui-auth-container', uiConfig);
       }
     });
   } catch (error) {

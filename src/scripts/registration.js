@@ -1,3 +1,4 @@
+import { Notify } from "quasar";
 import { firebase } from "src/boot/firebase";
 import { reactive } from "vue";
 
@@ -8,8 +9,8 @@ const registration = reactive({
     name: '',
     phone: '',
     phone_confirmation: '',
-    date_of_birth: '',
-    // date_of_birth: '1990/01/01',
+    // date_of_birth: '',
+    date_of_birth: '1990-01-01',
     // date_of_birth: '1990/01/01',
   },
   fields: [
@@ -41,16 +42,16 @@ const registration = reactive({
         hint: 'I phone number ziak lut nawn leh rawh',
       },
     },
-    {
-      key: 'date_of_birth',
-      type: 'date',
-      props: {
-        lazy: true,
-        label: 'Date of Birth',
-        rules: [val => !!val || 'I pian ni ziak lut rawh'],
-        hint: 'I phone number ziak lut nawn leh rawh',
-      },
-    },
+    // {
+    //   key: 'date_of_birth',
+    //   type: 'date',
+    //   props: {
+    //     lazy: true,
+    //     label: 'Date of Birth',
+    //     rules: [val => !!val || 'I pian ni ziak lut rawh'],
+    //     hint: 'I phone number ziak lut nawn leh rawh',
+    //   },
+    // },
 
 
 
@@ -111,7 +112,11 @@ function submitCustomForm() {
   firebase.auth().fetchSignInMethodsForEmail(email)
     .then((methods) => {
       if (methods.length > 0) {
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(
+          () => {
+            Notify.create('Pian ni leh phone no. a inmil lo.')
+          }
+        )
         // Proceed to password input or other actions
       } else {
         console.log('Email does not exist:', email);
