@@ -1,7 +1,10 @@
 <template>
   <q-page padding>
     <LoginRegisterForm v-show="!home.loading && !home.user" />
-    <q-table>
+    <q-table
+      :rows="home.rows"
+      :columns="home.columns"
+    >
       <template v-slot:top-right>
         <div>
           <q-btn
@@ -28,6 +31,6 @@ const showfirebaseUI = computed(() => {
   return home.user == null
 })
 onMounted(() => {
-  //
+  home.getEntries();
 })
 </script>

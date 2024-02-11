@@ -13,8 +13,8 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title>
-          FARMER DEMO
+        <q-toolbar-title @click="$router.push('/')">
+          <span class="cursor-pointer">FARMER DEMO</span>
         </q-toolbar-title>
         <q-btn
           v-if="home.user"

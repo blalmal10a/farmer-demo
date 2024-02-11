@@ -3,7 +3,7 @@ import { firebase, firebaseAuthUI } from "src/boot/firebase";
 import { reactive } from "vue";
 import { home } from "./home";
 
-// const db = firebase.firestore();
+
 const farm = reactive({
   form: {
     date: date.formatDate(new Date(), 'YYYY-MM-DD'),
@@ -92,7 +92,8 @@ function initializeFarmFields() {
       props: {
         label: 'Thlai thar zawng zawng rih zawng ang hu',
         rules: [val => !!val || 'Thlai thar rih zawng ziak lut rawh'],
-
+        step: '0.01',
+        type: 'number',
       },
       before: () => 'Kg'
     },
@@ -100,10 +101,17 @@ function initializeFarmFields() {
 }
 
 
+const db = firebase.firestore();
+
+
+
 function onSubmitForm() {
   try {
-    console.log(home.user.email)
-    // db.collection(home.user)
+    db.collection(home.user?.email).add({
+      ...farm.form
+    })
+
+
   } catch (error) {
     console.error(error.message);
   }

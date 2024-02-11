@@ -1,7 +1,10 @@
 import * as firebaseui from 'firebaseui';
+
 // import { initializeApp } from 'firebase/app';
 import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+
 import { home } from 'src/scripts/home';
 const firebaseConfig = {
   apiKey: "AIzaSyCvc2x-vq3soJahuUBG8wTAfmW1T5QVFIQ",
