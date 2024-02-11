@@ -1,14 +1,25 @@
 <template>
   <q-page class="flex flex-center">
+    <q-inner-loading :showing="home.loading">
+      <q-spinner-hourglass
+        size="70px"
+        color="primary"
+      />
+    </q-inner-loading>
 
-
+    <div id="firebaseui-auth-container"></div>
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { computed, onMounted } from 'vue';
 
-export default defineComponent({
-  name: 'IndexPage'
+import { home } from 'src/scripts/home'
+const showfirebaseUI = computed(() => {
+  return home.user == null
+})
+onMounted(() => {
+  // The start method will wait until the DOM is loaded.
+  home.checkAuth()
 })
 </script>
