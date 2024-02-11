@@ -1,8 +1,18 @@
 <template>
   <q-page padding>
-
     <LoginRegisterForm v-show="!home.loading && !home.user" />
-    <q-table></q-table>
+    \
+    <q-table>
+      <template v-slot:top-right>
+        <div>
+          <q-btn
+            no-caps
+            icon="add"
+            label="Add Entry"
+          ></q-btn>
+        </div>
+      </template>
+    </q-table>
   </q-page>
 </template>
 
