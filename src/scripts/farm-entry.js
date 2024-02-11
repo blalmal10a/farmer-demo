@@ -1,4 +1,4 @@
-import { date } from "quasar";
+import { Notify, date } from "quasar";
 import { firebase, firebaseAuthUI } from "src/boot/firebase";
 import { reactive } from "vue";
 import { home } from "./home";
@@ -11,6 +11,7 @@ const farm = reactive({
     measurement: '',
     quantity: '',
   },
+  loadingSubmit: false,
   fields: [],
   onSubmitForm,
 })
@@ -105,14 +106,27 @@ const db = firebase.firestore();
 
 
 
-function onSubmitForm() {
+function onSubmitForm(router) {
   try {
+    farm.loadingSubmit = true
     db.collection(home.user?.email).add({
       ...farm.form
-    })
+    }).finally(() => {
+      farm.loadingSubmit = false
+      router.push({
+        name: 'home'
+      })
+    }).catch(
+      (error) => {
+        Notify.create(error.message)
+        console.error(error.message);
+      }
+    )
 
 
   } catch (error) {
+    farm.loadingSubmit = false
+    Notify.create(error.message)
     console.error(error.message);
   }
 }
