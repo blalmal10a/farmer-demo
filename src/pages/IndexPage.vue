@@ -1,13 +1,8 @@
 <template>
-  <q-page class="flex flex-center">
-    <q-inner-loading :showing="home.loading">
-      <q-spinner-hourglass
-        size="70px"
-        color="primary"
-      />
-    </q-inner-loading>
+  <q-page padding>
 
-    <div id="firebaseui-auth-container"></div>
+    <LoginRegisterForm v-show="!home.loading && !home.user" />
+    <q-table></q-table>
   </q-page>
 </template>
 
@@ -15,11 +10,11 @@
 import { computed, onMounted } from 'vue';
 
 import { home } from 'src/scripts/home'
+import LoginRegisterForm from 'src/components/home/LoginRegisterForm.vue';
 const showfirebaseUI = computed(() => {
   return home.user == null
 })
 onMounted(() => {
-
-  // home.checkAuth()
+  //
 })
 </script>
