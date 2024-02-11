@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <h5>
+    <h5 class="q-ma-none q-pb-md">
       {{ date.formatDate(farm.form.date, 'MMMM') }} ni {{ date.formatDate(farm.form.date, 'D') }}, {{
         date.formatDate(farm.form.date, 'YYYY') }}-a in thlai thar seng dan dinhmun ziak lut rawh le.
     </h5>

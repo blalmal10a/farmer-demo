@@ -14,9 +14,17 @@ const farm = reactive({
   loadingSubmit: false,
   fields: [],
   onSubmitForm,
+  resetForm
 })
 farm.fields = initializeFarmFields();
-
+function resetForm() {
+  farm.form = {
+    date: date.formatDate(new Date(), 'YYYY-MM-DD'),
+    vegetable: '',
+    measurement: '',
+    quantity: '',
+  }
+}
 function displayUnit() {
   return farm.form.measurement == 'A dang' ? form.form.custom_measurement : farm.form.measurement
 }
@@ -30,6 +38,37 @@ export {
 }
 
 
+
+
+const db = firebase.firestore();
+
+
+
+function onSubmitForm(router) {
+  try {
+    farm.loadingSubmit = true
+    db.collection(home.user?.email).add({
+      ...farm.form
+    }).finally(() => {
+      farm.loadingSubmit = false
+      farm.resetForm()
+      router.push({
+        name: 'home'
+      })
+    }).catch(
+      (error) => {
+        Notify.create(error.message)
+        console.error(error.message);
+      }
+    )
+
+
+  } catch (error) {
+    farm.loadingSubmit = false
+    Notify.create(error.message)
+    console.error(error.message);
+  }
+}
 function initializeFarmFields() {
   return [
     {
@@ -99,34 +138,4 @@ function initializeFarmFields() {
       before: () => 'Kg'
     },
   ]
-}
-
-
-const db = firebase.firestore();
-
-
-
-function onSubmitForm(router) {
-  try {
-    farm.loadingSubmit = true
-    db.collection(home.user?.email).add({
-      ...farm.form
-    }).finally(() => {
-      farm.loadingSubmit = false
-      router.push({
-        name: 'home'
-      })
-    }).catch(
-      (error) => {
-        Notify.create(error.message)
-        console.error(error.message);
-      }
-    )
-
-
-  } catch (error) {
-    farm.loadingSubmit = false
-    Notify.create(error.message)
-    console.error(error.message);
-  }
 }
