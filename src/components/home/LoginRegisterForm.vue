@@ -16,7 +16,10 @@
               @click="registration.customForm = true"
             >
               <div class="full-width row text-left">
-                <div class="col-auto q-px-md">
+                <div
+                  class="col-auto"
+                  style="padding: 0 12px;"
+                >
                   <q-icon name="emoji_people" />
                 </div>
                 <div class="col">
