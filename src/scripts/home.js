@@ -1,6 +1,7 @@
 import { firebase, firebaseAuthUI, uiConfig } from "src/boot/firebase";
 import { reactive } from "vue";
-import { Loading, QSpinnerHourglass } from 'quasar';
+import { Loading, Notify, QSpinnerHourglass } from 'quasar';
+
 
 const home = reactive({
   loading: false,
@@ -48,6 +49,8 @@ function checkAuth(router) {
     home.loading = true;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+
+
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/v8/firebase.User
         var uid = user.uid;
@@ -76,12 +79,22 @@ function checkAuth(router) {
 }
 
 function getEntries() {
+
   home.loadingTable = true;
   try {
-
     const db = firebase.firestore();
-    if (!home.user?.email) return;
-    db.collection(home.user.email).orderBy('date', 'desc').get().then(
+    let phoneNo = '';
+    if (home.user.phoneNumber) {
+      const start = home.user.phoneNumber.length - 10;
+      const end = home.user.phoneNumber.length;
+      phoneNo = home.user.phoneNumber.substring(start, end);
+    }
+
+    let collectionName = home.user?.email ?? phoneNo;
+
+    if (!collectionName) collectionName = 'common';
+
+    db.collection(collectionName).orderBy('date', 'desc').get().then(
       (items) => {
         home.rows = []
         items.forEach(
@@ -89,7 +102,17 @@ function getEntries() {
             home.rows.push(data.data())
           }
         )
+      }
+    ).finally(
+      () => {
+
         home.loadingTable = false;
+      }
+    ).catch(
+
+      (error) => {
+        Notify.create(error.message)
+        console.error(error.message);
       }
     )
 

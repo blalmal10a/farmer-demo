@@ -47,7 +47,18 @@ const db = firebase.firestore();
 function onSubmitForm(router) {
   try {
     farm.loadingSubmit = true
-    db.collection(home.user?.email).add({
+    let phoneNo = '';
+    if (home.user.phoneNumber) {
+      const start = home.user.phoneNumber.length - 10;
+      const end = home.user.phoneNumber.length;
+      phoneNo = home.user.phoneNumber.substring(start, end);
+    }
+
+    let collectionName = home.user?.email ?? phoneNo;
+
+    if (!collectionName) collectionName = 'common';
+
+    db.collection(collectionName).add({
       ...farm.form
     }).finally(() => {
       farm.loadingSubmit = false
@@ -115,7 +126,6 @@ function initializeFarmFields() {
       props: {
         label: 'A tehna',
         rules: [val => !!val || 'A tehna fung atana in hman ziak lut rawh'],
-
       },
     },
     {
